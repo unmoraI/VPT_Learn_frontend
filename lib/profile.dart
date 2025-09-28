@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'theme.dart'; // Импорт цветов
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -6,7 +7,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: AppColors.primaryBackground, // цвет фона
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48),
         child: Column(
@@ -15,24 +16,24 @@ class ProfilePage extends StatelessWidget {
             CircleAvatar(
               radius: 50,
               backgroundColor: Colors.white12,
-              child: Icon(Icons.person, size: 60, color: Colors.white54),
+              child: Icon(Icons.person, size: 60, color: AppColors.secondaryText),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'name',
               style: TextStyle(
                 fontSize: 22,
-                color: Colors.white70,
+                color: AppColors.primaryText,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.5,
               ),
             ),
             const SizedBox(height: 6),
-            const Text(
+            Text(
               '[Email]',
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.white38,
+                color: AppColors.secondaryText.withValues(alpha: 0.6),
               ),
             ),
             const SizedBox(height: 32),
@@ -42,7 +43,7 @@ class ProfilePage extends StatelessWidget {
                 'Settings',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white70.withValues(alpha: 0.8),
+                  color: AppColors.primaryText.withValues(alpha: 0.8),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -52,33 +53,25 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.language,
               title: 'English',
               trailingIcon: Icons.expand_more,
-              onTap: () {
-                // Выбор языка
-              },
+              onTap: () {},
             ),
             _buildSettingsItem(
               icon: Icons.edit,
               title: 'Profile Settings',
               trailingText: 'Edit Profile',
-              onTap: () {
-                // Редактировать профиль
-              },
+              onTap: () {},
             ),
             _buildSettingsItem(
               icon: Icons.notifications,
               title: 'Notification Settings',
               trailingIcon: Icons.arrow_forward_ios,
-              onTap: () {
-                // Настройки уведомлений
-              },
+              onTap: () {},
             ),
             _buildSettingsItem(
               icon: Icons.logout,
               title: 'Log out of account',
               trailingText: 'Log Out?',
-              onTap: () {
-                // Выход из аккаунта
-              },
+              onTap: () {},
             ),
           ],
         ),
@@ -97,13 +90,12 @@ class ProfilePage extends StatelessWidget {
       children: [
         ListTile(
           contentPadding: EdgeInsets.zero,
-          leading: Icon(icon, color: Colors.white54),
-          title: Text(title, style: const TextStyle(color: Colors.white70)),
+          leading: Icon(icon, color: AppColors.secondaryText),
+          title: Text(title, style: TextStyle(color: AppColors.primaryText)),
           trailing: trailingIcon != null
-              ? Icon(trailingIcon, color: Colors.white54, size: 20)
+              ? Icon(trailingIcon, color: AppColors.secondaryText, size: 20)
               : (trailingText != null
-                  ? Text(trailingText,
-                      style: const TextStyle(color: Colors.white54))
+                  ? Text(trailingText, style: TextStyle(color: AppColors.secondaryText))
                   : null),
           onTap: onTap,
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'training.dart';
+import 'theme.dart'; // импорт класса с цветами
+
 
 void main() => runApp(const MyApp());
 
@@ -34,7 +36,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF23272A),
+      backgroundColor: AppColors.primaryBackground, // Цвет из theme.dart
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(24),
@@ -43,7 +45,6 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 24),
-              // Логотип
               CircleAvatar(
                 radius: 48,
                 backgroundColor: Colors.white12,
@@ -55,19 +56,18 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white70,
+                  color: AppColors.secondaryText, // Цвет из theme.dart
                   letterSpacing: 1,
                 ),
               ),
               const SizedBox(height: 18),
-              // Табы
               TabBar(
                 controller: _tabController,
                 tabs: const [
                   Tab(text: "Create Account"),
                   Tab(text: "Log In"),
                 ],
-                indicatorColor: Color(0xFF35CFCB),
+                indicatorColor: AppColors.alternate, // Цвет из theme.dart
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.white54,
               ),
@@ -77,9 +77,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    // Регистрация
                     _buildCreateAccount(),
-                    // Вход
                     _buildLogin(),
                   ],
                 ),
@@ -95,14 +93,14 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "Create Account",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white54),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.secondaryText),
         ),
         const SizedBox(height: 4),
-        const Text(
+        Text(
           "Let's get started by filling out the form below.",
-          style: TextStyle(fontSize: 14, color: Colors.white54),
+          style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
         ),
         const SizedBox(height: 24),
         _buildInputField(label: "Email"),
@@ -114,27 +112,26 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1D2531),
-             padding: const EdgeInsets.symmetric(vertical: 16),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-              ),
-                onPressed: () {
-                // Переход на страницу обучения
-                Navigator.push(
+            ),
+            onPressed: () {
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LearningTab()),
               );
-             },
-          child: const Text(
-         "Get Started",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            },
+            child: const Text(
+              "Get Started",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, ),
+            ),
           ),
         ),
-        ),
         const SizedBox(height: 20),
-        const Center(
-          child: Text("Or sign up with", style: TextStyle(color: Colors.white54)),
+        Center(
+          child: Text("Or sign up with", style: TextStyle(color: AppColors.secondaryText)),
         ),
         const SizedBox(height: 8),
         SizedBox(
@@ -158,9 +155,9 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "Log In",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white70),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryText),
         ),
         const SizedBox(height: 24),
         _buildInputField(label: "Email"),
@@ -170,20 +167,20 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1D2531),
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                    ),
-                  onPressed: () {
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LearningTab()),
-                 );
-                },
-              child: const Text(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LearningTab()),
+              );
+            },
+            child: const Text(
               "Log In",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryText),
             ),
           ),
         ),
@@ -197,17 +194,17 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
       decoration: InputDecoration(
         labelText: label,
         filled: true,
-        fillColor: Colors.white10,
+        fillColor: AppColors.secondaryBackground,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide.none,
         ),
         suffixIcon: isPassword
-            ? Icon(Icons.visibility_off, color: Colors.white38)
+            ? Icon(Icons.visibility_off, color: AppColors.secondaryText)
             : null,
-        labelStyle: TextStyle(color: Colors.white54),
+        labelStyle: TextStyle(color: AppColors.secondaryText),
       ),
-      style: const TextStyle(color: Colors.white),
+      style: TextStyle(color: AppColors.primaryText),
     );
   }
 }

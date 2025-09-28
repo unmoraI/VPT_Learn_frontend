@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'theme.dart'; // Импорт класса с цветами
 
-// Точка входа приложения
 void main() => runApp(const MyApp());
 
-// Основной виджет приложения
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   
@@ -18,7 +17,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Главный экран с навигацией по вкладкам
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
   
@@ -29,7 +27,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  // Список страниц - можно расширять и заменять
   final List<Widget> _pages = const [
     LearningTab(),
     KnowledgeBasePage(),
@@ -38,20 +35,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; // Обновляем индекс выбранной вкладки
+      _selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],  // Показываем выбранную страницу
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex, // Текущий активный индекс
-        onTap: _onItemTapped,         // Обработчик нажатия
-        backgroundColor: const Color(0xFF23272A),
-        selectedItemColor: const Color.fromARGB(255, 190, 94, 214),
-        unselectedItemColor: Colors.white54,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        backgroundColor: AppColors.primaryBackground,
+        selectedItemColor: AppColors.alternate,
+        unselectedItemColor: AppColors.secondaryText,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
@@ -71,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// Ваша реализация вкладки "Обучение"
 class LearningTab extends StatelessWidget {
   const LearningTab({super.key});
   
@@ -98,7 +94,7 @@ class LearningTab extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Обучение'),
-        backgroundColor: const Color.fromARGB(255, 124, 37, 164),
+        backgroundColor: AppColors.secondary,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
@@ -125,21 +121,19 @@ class LearningTab extends StatelessWidget {
                   LinearProgressIndicator(
                     value: course.progress,
                     backgroundColor: Colors.grey[300],
-                    color: const Color.fromARGB(255, 190, 94, 214),
+                    color: AppColors.completed,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     '${(course.progress * 100).toInt()}% завершено',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
-                      color: Color.fromARGB(255, 190, 94, 214),
+                      color: AppColors.completed,
                     ),
                   ),
                 ],
               ),
-              onTap: () {
-                // Можно добавить переход на страницу курса
-              },
+              onTap: () {},
             ),
           );
         },
@@ -148,7 +142,6 @@ class LearningTab extends StatelessWidget {
   }
 }
 
-// Класс курса
 class Course {
   final String title;
   final String description;
@@ -161,7 +154,6 @@ class Course {
   });
 }
 
-// Заглушка для базы знаний
 class KnowledgeBasePage extends StatelessWidget {
   const KnowledgeBasePage({super.key});
   
@@ -170,7 +162,7 @@ class KnowledgeBasePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('База знаний'),
-        backgroundColor: const Color.fromARGB(255, 124, 37, 164),
+        backgroundColor: AppColors.secondary,
       ),
       body: const Center(
         child: Text(
@@ -182,7 +174,6 @@ class KnowledgeBasePage extends StatelessWidget {
   }
 }
 
-// Заглушка для профиля
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
   
@@ -191,7 +182,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Профиль'),
-        backgroundColor: const Color.fromARGB(255, 124, 37, 164),
+        backgroundColor: AppColors.secondary,
       ),
       body: const Center(
         child: Text(
