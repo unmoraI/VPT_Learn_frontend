@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test1/learning_tab.dart';
 import 'training.dart';
 import 'theme.dart'; // импорт класса с цветами
 
