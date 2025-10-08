@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test1/learning_tab.dart';
 import 'home_screen.dart';
 import 'theme.dart';
 
@@ -43,52 +42,55 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
+      // Чтобы избавиться от overflow при появлении клавиатуры:
       body: Center(
-        child: Container(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          width: 380,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 24),
-              CircleAvatar(
-                radius: 48,
-                backgroundColor: Colors.white12,
-                child: const Icon(Icons.book, size: 48, color: Colors.white),
-              ),
-              const SizedBox(height: 14),
-              const Text(
-                "VPTLearn",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.secondaryText,
-                  letterSpacing: 1,
+          child: Container(
+            width: 380,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 24),
+                CircleAvatar(
+                  radius: 48,
+                  backgroundColor: Colors.white12,
+                  child: const Icon(Icons.book, size: 48, color: Colors.white),
                 ),
-              ),
-              const SizedBox(height: 18),
-              TabBar(
-                controller: _tabController,
-                tabs: const [
-                  Tab(text: "Create Account"),
-                  Tab(text: "Log In"),
-                ],
-                indicatorColor: AppColors.alternate,
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.white54,
-              ),
-              const SizedBox(height: 18),
-              SizedBox(
-                height: 370,
-                child: TabBarView(
+                const SizedBox(height: 14),
+                const Text(
+                  "VPTLearn",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.secondaryText,
+                    letterSpacing: 1,
+                  ),
+                ),
+                const SizedBox(height: 18),
+                TabBar(
                   controller: _tabController,
-                  children: [
-                    _buildCreateAccount(),
-                    _buildLogin(),
+                  tabs: const [
+                    Tab(text: "Create Account"),
+                    Tab(text: "Log In"),
                   ],
+                  indicatorColor: AppColors.alternate,
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white54,
                 ),
-              ),
-            ],
+                const SizedBox(height: 18),
+                SizedBox(
+                  height: 400,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _buildCreateAccount(),
+                      _buildLogin(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -125,8 +127,8 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
             ),
             onPressed: () {
               Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
             },
             child: const Text(
@@ -136,23 +138,6 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
           ),
         ),
         const SizedBox(height: 20),
-        Center(
-          child: Text("Or sign up with", style: TextStyle(color: AppColors.secondaryText)),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          width: double.infinity,
-          child: OutlinedButton.icon(
-            icon: const Icon(Icons.android, color: Colors.white),
-            label: const Text("Continue with Google", style: TextStyle(color: Colors.white)),
-            style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Colors.white38),
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-            ),
-            onPressed: () {},
-          ),
-        ),
       ],
     );
   }
@@ -180,8 +165,8 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
             ),
             onPressed: () {
               Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
             },
             child: const Text(
@@ -205,7 +190,9 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide.none,
         ),
-        suffixIcon: isPassword ? Icon(Icons.visibility_off, color: AppColors.secondaryText) : null,
+        suffixIcon: isPassword
+            ? Icon(Icons.visibility_off, color: AppColors.secondaryText)
+            : null,
         labelStyle: TextStyle(color: AppColors.secondaryText),
       ),
       style: TextStyle(color: AppColors.primaryText),

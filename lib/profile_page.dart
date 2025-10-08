@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'theme.dart';
+import 'package:test1/reg_log.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -7,7 +8,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryBackground, // цвет фона
+      backgroundColor: AppColors.primaryBackground,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48),
         child: Column(
@@ -33,7 +34,7 @@ class ProfilePage extends StatelessWidget {
               '[Email]',
               style: TextStyle(
                 fontSize: 14,
-                color: AppColors.secondaryText.withValues(alpha: 0.6),
+                color: AppColors.secondaryText.withAlpha(153),
               ),
             ),
             const SizedBox(height: 32),
@@ -43,18 +44,12 @@ class ProfilePage extends StatelessWidget {
                 'Settings',
                 style: TextStyle(
                   fontSize: 20,
-                  color: AppColors.primaryText.withValues(alpha: 0.8),
+                  color: AppColors.primaryText.withAlpha(204),
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            _buildSettingsItem(
-              icon: Icons.language,
-              title: 'English',
-              trailingIcon: Icons.expand_more,
-              onTap: () {},
-            ),
             _buildSettingsItem(
               icon: Icons.edit,
               title: 'Profile Settings',
@@ -62,16 +57,15 @@ class ProfilePage extends StatelessWidget {
               onTap: () {},
             ),
             _buildSettingsItem(
-              icon: Icons.notifications,
-              title: 'Notification Settings',
-              trailingIcon: Icons.arrow_forward_ios,
-              onTap: () {},
-            ),
-            _buildSettingsItem(
               icon: Icons.logout,
               title: 'Log out of account',
               trailingText: 'Log Out?',
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AuthPage()),
+                );
+              },
             ),
           ],
         ),

@@ -20,6 +20,21 @@ class LearningTab extends StatelessWidget {
       description: 'Работа с базами данных, запросы SQL.',
       progress: 0.15,
     ),
+    Course(
+      title: 'C# с нуля',
+      description: 'Базовые вещи',
+      progress: 0,
+    ),
+    Course(
+      title: 'C++ для чайников',
+      description: 'Изучение C++ как первого языка',
+      progress: 0.55,
+    ),
+    Course(
+      title: 'Flutter как смысл жизни',
+      description: 'Научимся делать такие-же крутые моб. приложения',
+      progress: 1,
+    ),
   ];
 
   @override
