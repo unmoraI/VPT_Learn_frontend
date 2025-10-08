@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:test1/training.dart';
-import 'package:test1/learning_tab.dart';
+import 'learning_tab.dart';
+import 'information_base_page.dart';
+import 'profile_page.dart';
 import 'theme.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-  
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;

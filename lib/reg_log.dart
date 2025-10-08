@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test1/learning_tab.dart';
-import 'training.dart';
-import 'theme.dart'; // импорт класса с цветами
-
+import 'home_screen.dart';
+import 'theme.dart';
 
 void main() => runApp(const MyApp());
 
@@ -35,9 +34,15 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryBackground, // Цвет из theme.dart
+      backgroundColor: AppColors.primaryBackground,
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(24),
@@ -57,7 +62,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.secondaryText, // Цвет из theme.dart
+                  color: AppColors.secondaryText,
                   letterSpacing: 1,
                 ),
               ),
@@ -68,7 +73,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                   Tab(text: "Create Account"),
                   Tab(text: "Log In"),
                 ],
-                indicatorColor: AppColors.alternate, // Цвет из theme.dart
+                indicatorColor: AppColors.alternate,
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.white54,
               ),
@@ -119,14 +124,14 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LearningTab()),
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
             },
             child: const Text(
               "Get Started",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -174,9 +179,9 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LearningTab()),
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
             },
             child: const Text(
@@ -200,9 +205,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide.none,
         ),
-        suffixIcon: isPassword
-            ? Icon(Icons.visibility_off, color: AppColors.secondaryText)
-            : null,
+        suffixIcon: isPassword ? Icon(Icons.visibility_off, color: AppColors.secondaryText) : null,
         labelStyle: TextStyle(color: AppColors.secondaryText),
       ),
       style: TextStyle(color: AppColors.primaryText),

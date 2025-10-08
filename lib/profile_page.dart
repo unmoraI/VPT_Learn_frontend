@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'theme.dart'; // Импорт цветов
+import 'theme.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

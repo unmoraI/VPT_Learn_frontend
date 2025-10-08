@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:test1/course.dart';
-import 'package:test1/theme.dart';
-import 'package:test1/training.dart';
+import 'theme.dart';
 
 class LearningTab extends StatelessWidget {
   const LearningTab({super.key});
-  
+
   final List<Course> courses = const [
     Course(
       title: 'Python для начинающих',
@@ -75,4 +73,16 @@ class LearningTab extends StatelessWidget {
       ),
     );
   }
+}
+
+class Course {
+  final String title;
+  final String description;
+  final double progress;
+
+  const Course({
+    required this.title,
+    required this.description,
+    required this.progress,
+  });
 }
