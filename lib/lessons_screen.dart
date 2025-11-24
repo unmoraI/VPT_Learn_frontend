@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'exercises_screen.dart'; // Импорт экрана с тестом
+
 class LessonsScreen extends StatefulWidget {
   final int courseId;
 
@@ -23,52 +25,48 @@ class _LessonsScreenState extends State<LessonsScreen> {
   }
 
   Future<void> _fetchLessons() async {
-  setState(() {
-    _isLoading = true;
-    _errorMessage = null;
-  });
-
-  try {
-    final data = await supabase
-        .from('lessons')
-        .select('courses_id, title, description')
-        .eq('courses_id', widget.courseId);
-
     setState(() {
-      _lessons = (data as List<dynamic>)
-          .map((json) => Lesson.fromJson(json as Map<String, dynamic>))
-          .toList();
-      _isLoading = false;
+      _isLoading = true;
+      _errorMessage = null;
     });
-  } catch (e) {
-    setState(() {
-      _errorMessage = 'Ошибка при загрузке уроков: $e';
-      _isLoading = false;
-    });
+
+    try {
+      final data = await supabase
+          .from('lessons')
+          .select('lesson_id, course_id, title, content')
+          .eq('course_id', widget.courseId);
+
+      setState(() {
+        _lessons = (data as List<dynamic>)
+            .map((json) => Lesson.fromJson(json as Map<String, dynamic>))
+            .toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Ошибка при загрузке уроков: $e';
+        _isLoading = false;
+      });
+    }
   }
-}
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Уроки курса'),
-      ),
+      appBar: AppBar(title: const Text('Уроки курса')),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : _errorMessage != null
               ? Center(child: Text(_errorMessage!))
               : _lessons.isEmpty
-                  ? Center(child: Text('Уроки не найдены'))
+                  ? const Center(child: Text('Уроки не найдены'))
                   : ListView.builder(
                       itemCount: _lessons.length,
                       itemBuilder: (context, index) {
                         final lesson = _lessons[index];
                         return Card(
-                          margin:
-                              const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
                           child: ListTile(
                             title: Text(lesson.title),
                             subtitle: Text(
@@ -77,7 +75,14 @@ class _LessonsScreenState extends State<LessonsScreen> {
                               overflow: TextOverflow.ellipsis,
                             ),
                             onTap: () {
-                              // Можно перейти в подробный просмотр урока
+                              // Переход на ExercisesScreen с передачей lesson.id
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ExercisesScreen(lessonId: lesson.id),
+                                ),
+                              );
                             },
                           ),
                         );
@@ -101,9 +106,16 @@ class Lesson {
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
+    final id = json['lesson_id'];
+    final courseId = json['course_id'];
+
+    if (id == null || courseId == null) {
+      throw Exception('lesson_id или course_id отсутствуют в данных урока: $json');
+    }
+
     return Lesson(
-      id: json['id'] as int,
-      coursesId: json['courses_id'] as int,
+      id: id as int,
+      coursesId: courseId as int,
       title: json['title'] as String? ?? '',
       content: json['content'] as String? ?? '',
     );

@@ -30,7 +30,7 @@ class _LearningTabState extends State<LearningTab> {
       final data = await supabase.from('courses').select();
       setState(() {
         courses = (data as List<dynamic>).map((e) => Course(
-          id: (e['courses_id'] != null) ? e['courses_id'] as int : 0,
+          id: (e['course_id'] != null) ? e['course_id'] as int : 0,
           title: e['title'] ?? '',
           description: e['description'] ?? '',
           progress: (e['progress'] as num?)?.toDouble() ?? 0.0,
