@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'user_administration_screen.dart';
 import 'theme.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
+
   @override
   _AdminScreenState createState() => _AdminScreenState();
 }
@@ -32,7 +34,10 @@ class _AdminScreenState extends State<AdminScreen> {
       });
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Ошибка при загрузке пользователей'), backgroundColor: Colors.red),
+        SnackBar(
+          content: Text('Ошибка при загрузке пользователей'),
+          backgroundColor: Colors.red,
+        ),
       );
     } finally {
       setState(() {
@@ -48,7 +53,7 @@ class _AdminScreenState extends State<AdminScreen> {
         title: const Text('Список пользователей'),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: fetchUsers,
             tooltip: 'Обновить',
           ),
@@ -83,6 +88,14 @@ class _AdminScreenState extends State<AdminScreen> {
                           emails[index],
                           style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UserAdministrationScreen(email: emails[index]),
+                            ),
+                          );
+                        },
                       ),
                     );
                   },
