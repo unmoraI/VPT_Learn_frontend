@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../theme.dart';
+import 'admin_lessons_screen.dart';
+import '/theme.dart';
 
 class AdminCoursesScreen extends StatefulWidget {
   const AdminCoursesScreen({super.key});
@@ -13,7 +14,7 @@ class AdminCoursesScreen extends StatefulWidget {
 
 class _AdminCoursesScreenState extends State<AdminCoursesScreen> {
   final supabase = Supabase.instance.client;
-  List<String> courses = [];
+  List<Map<String, dynamic>> courses = [];
   bool _isLoading = true;
 
   @override
@@ -27,9 +28,13 @@ class _AdminCoursesScreenState extends State<AdminCoursesScreen> {
       _isLoading = true;
     });
     try {
-      final data = await supabase.from('courses').select('title') as List<dynamic>;
+      final data = await supabase
+          .from('courses')
+          .select('course_id, title')
+          .order('course_id', ascending: true) as List<dynamic>;
+      
       setState(() {
-        courses = data.map((e) => e['title'] as String).toList();
+        courses = data.cast<Map<String, dynamic>>();
       });
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -64,29 +69,32 @@ class _AdminCoursesScreenState extends State<AdminCoursesScreen> {
               ? Center(
                   child: Text(
                     'Курсы не найдены',
-                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    style: TextStyle(fontSize: 16, color: AppColors.secondaryText),
                   ),
                 )
               : ListView.builder(
                   padding: const EdgeInsets.all(8),
                   itemCount: courses.length,
                   itemBuilder: (context, index) {
+                    final course = courses[index];
                     return Card(
                       elevation: 3,
                       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: AppColors.secondaryText,
-                          child: Text(
-                            courses[index][0].toUpperCase(),
-                            style: const TextStyle(color: AppColors.secondary),
-                          ),
-                        ),
                         title: Text(
-                          courses[index],
+                          course['title'],
                           style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                         onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AdminLessonsScreen(
+                                courseId: course['course_id'] as int,
+                              ),
+                            ),
+                          );
                         },
                       ),
                     );
