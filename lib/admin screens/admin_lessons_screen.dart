@@ -70,7 +70,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
               ? Center(
                   child: Text(
                     'Уроки не найдены',
-                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    style: TextStyle(fontSize: 16, color: AppColors.secondaryText),
                   ),
                 )
               : ListView.builder(
